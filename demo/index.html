@@ -29,12 +29,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="stylesheet" href="../../paper-styles/demo.css">
 
   <style is="custom-style">
-    paper-button {
+    section > paper-button {
       background-color: var(--google-grey-300);
       padding: 5px;
     }
 
-    paper-button:hover {
+    section > paper-button:hover {
       background-color: var(--paper-light-blue-200);
       padding: 5px;
     }
@@ -136,8 +136,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <script>
     function clickHandler(e) {
-      // The event is actually coming from the paper-meaterial.
-      var button = e.target.parentElement;
+      var button = e.target;
+      while (!button.hasAttribute('data-dialog') && button !== document.body) {
+        button = button.parentElement;
+      }
+      
       if (!button.hasAttribute('data-dialog')) {
         return;
       }
