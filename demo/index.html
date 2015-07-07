@@ -59,7 +59,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   </style>
 
 </head>
-<body>
+<body unresolved>
 
   <section onclick="clickHandler(event)">
     <h4>Dialog layouts</h4>
@@ -140,7 +140,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       while (!button.hasAttribute('data-dialog') && button !== document.body) {
         button = button.parentElement;
       }
-      
+
       if (!button.hasAttribute('data-dialog')) {
         return;
       }
