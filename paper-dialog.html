@@ -97,6 +97,7 @@ element.
       if (this.withBackdrop) {
         this.backdropElement.open();
       }
+      this.cancelAnimation();
       this.playAnimation('entry');
     },
 
@@ -104,6 +105,7 @@ element.
       if (this.withBackdrop) {
         this.backdropElement.close();
       }
+      this.cancelAnimation();
       this.playAnimation('exit');
     },
 
