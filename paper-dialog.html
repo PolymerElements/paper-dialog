@@ -92,16 +92,10 @@ element.
     },
 
     _renderOpened: function() {
-      if (this.withBackdrop) {
-        this.backdropElement.open();
-      }
       this.playAnimation('entry');
     },
 
     _renderClosed: function() {
-      if (this.withBackdrop) {
-        this.backdropElement.close();
-      }
       this.playAnimation('exit');
     },
 
