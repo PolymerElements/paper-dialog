@@ -9,41 +9,69 @@ Code distributed by Google as part of the polymer project is also
 subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
 -->
 <html>
-  <head>
 
-    <title>paper-dialog tests</title>
+<head>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
+  <title>paper-dialog tests</title>
 
-    <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../../web-component-tester/browser.js"></script>
-    <link rel="import" href="../paper-dialog.html">
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
-  </head>
-  <body>
+  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-component-tester/browser.js"></script>
+  <link rel="import" href="../paper-dialog.html">
+</head>
 
-    <test-fixture id="basic">
-      <template>
-        <paper-dialog>
-          <p>Dialog</p>
-        </paper-dialog>
-      </template>
-    </test-fixture>
+<body>
 
-    <script>
+  <test-fixture id="basic">
+    <template>
+      <paper-dialog>
+        <p>Dialog</p>
+      </paper-dialog>
+    </template>
+  </test-fixture>
 
-      suite('a11y', function() {
+  <test-fixture id="opened-modals">
+    <template>
+      <paper-dialog modal opened>
+        <p>Dialog 1</p>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+      </paper-dialog>
+      <paper-dialog modal opened>
+        <p>Dialog 2</p>
+      </paper-dialog>
+    </template>
+  </test-fixture>
 
-        test('dialog has role="dialog"', function() {
-          var dialog = fixture('basic');
-          assert.equal(dialog.getAttribute('role'), 'dialog', 'has role="dialog"');
+  <script>
+    suite('modal', function() {
+
+      test('backdrop element remains opened when closing top modal', function(done) {
+        var modal = fixture('opened-modals')[1];
+        modal.addEventListener('iron-overlay-opened', function() {
+          assert.isTrue(modal.backdropElement.opened, 'backdrop is open');
+          modal.close();
         });
-
+        modal.addEventListener('iron-overlay-closed', function() {
+          assert.isTrue(modal.backdropElement.opened, 'backdrop is still open');
+          done();
+        });
       });
 
-    </script>
+    });
 
-  </body>
+    suite('a11y', function() {
+
+      test('dialog has role="dialog"', function() {
+        var dialog = fixture('basic');
+        assert.equal(dialog.getAttribute('role'), 'dialog', 'has role="dialog"');
+      });
+
+    });
+  </script>
+
+</body>
+
 </html>
