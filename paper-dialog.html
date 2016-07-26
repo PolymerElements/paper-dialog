@@ -100,7 +100,7 @@ element.
     _renderOpened: function() {
       this._removeAnimationClasses();
 
-      // Adding the .paper-dialog-opening css class allows parent clients of
+      // Adding the .paper-dialog-opening css class allows clients of
       // this component to use CSS animations to animate opening the dialog.
       this.toggleClass(ANIMATION_CSS_CLASSES.OPENING, true);
 
@@ -114,7 +114,7 @@ element.
     _renderClosed: function() {
       this._removeAnimationClasses();
 
-      // Adding the .paper-dialog-closing css class allows parent clients of
+      // Adding the .paper-dialog-closing css class allows clients of
       // this component to use CSS animations to animate closing the dialog.
       this.toggleClass(ANIMATION_CSS_CLASSES.CLOSING, true);
 
