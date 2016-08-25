@@ -1,7 +1,7 @@
 {
   "name": "paper-dialog",
   "description": "A Material Design dialog",
-  "version": "1.1.0",
+  "version": "2.0.0",
   "authors": "The Polymer Authors",
   "keywords": [
     "web-components",
@@ -20,21 +20,32 @@
   "ignore": [],
   "dependencies": {
     "neon-animation": "PolymerElements/neon-animation#^1.0.0",
-    "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^1.0.0",
-    "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^1.7.0",
-    "paper-styles": "PolymerElements/paper-styles#^1.0.0",
-    "polymer": "Polymer/polymer#^1.1.0"
+    "paper-dialog-behavior": "https://github.com/notwaldorf/paper-dialog-behavior.git#2.0-preview",
+    "paper-styles": "https://github.com/notwaldorf/paper-styles.git#2.0-preview",
+    "polymer": "https://github.com/PolymerLabs/alacarte.git#master"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#^1.0.0",
-    "paper-button": "PolymerElements/paper-button#^1.0.0",
-    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#^1.0.0",
+    "iron-demo-helpers": "https://github.com/notwaldorf/iron-demo-helpers.git#2.0-preview",
+    "iron-test-helpers": "https://github.com/notwaldorf/iron-test-helpers.git#2.0-preview",
+    "paper-button": "https://github.com/notwaldorf/paper-button.git#2.0-preview",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.0.0",
     "paper-item": "PolymerElements/paper-item#^1.0.0",
     "paper-menu": "PolymerElements/paper-menu#^1.0.0",
-    "test-fixture": "PolymerElements/test-fixture#^1.0.0",
+    "test-fixture": "PolymerElements/test-fixture#custom-elements-v1",
     "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#v1-polymer-edits"
+  },
+  "resolutions": {
+    "paper-button": "2.0-preview",
+    "paper-styles": "2.0-preview",
+    "polymer": "master",
+    "iron-resizable-behavior": "2.0-preview",
+    "test-fixture": "custom-elements-v1",
+    "webcomponentsjs": "v1-polymer-edits",
+    "iron-flex-layout": "2.0-preview",
+    "iron-a11y-keys-behavior": "2.0-preview",
+    "iron-fit-behavior": "2.0-preview",
+    "iron-overlay-behavior": "2.0-preview"
   }
 }
