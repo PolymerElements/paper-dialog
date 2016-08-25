@@ -19,7 +19,7 @@
   "homepage": "https://github.com/PolymerElements/paper-dialog",
   "ignore": [],
   "dependencies": {
-    "neon-animation": "PolymerElements/neon-animation#^1.0.0",
+    "neon-animation": "https://github.com/notwaldorf/neon-animation.git#2.0-preview",
     "paper-dialog-behavior": "https://github.com/notwaldorf/paper-dialog-behavior.git#2.0-preview",
     "polymer": "https://github.com/PolymerLabs/alacarte.git#master"
   },
@@ -46,6 +46,7 @@
     "iron-flex-layout": "2.0-preview",
     "iron-a11y-keys-behavior": "2.0-preview",
     "iron-fit-behavior": "2.0-preview",
-    "iron-overlay-behavior": "2.0-preview"
+    "iron-overlay-behavior": "2.0-preview",
+    "neon-animation": "2.0-preview"
   }
 }
