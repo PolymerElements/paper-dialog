@@ -34,7 +34,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../iron-demo-helpers/demo-snippet.html">
   <link rel="import" href="../../iron-demo-helpers/demo-pages-shared-styles.html">
 
-  <style is="custom-style" include="demo-pages-shared-styles">
+  <custom-style><style is="custom-style" include="demo-pages-shared-styles">
     .centered {
       min-width: 500px;
     }
@@ -44,7 +44,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         max-height: 250px;
       }
     }
-  </style>
+  </style></custom-style>
 
 </head>
 
@@ -146,7 +146,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <h3>Styling and positioning</h3>
   <demo-snippet>
     <template>
-      <style is="custom-style">
+      <custom-style><style is="custom-style">
         paper-dialog.colored {
           border: 2px solid;
           border-color: var(--paper-green-500);
@@ -162,7 +162,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           height: 300px;
           overflow: auto;
         }
-      </style>
+      </style></custom-style>
       <paper-button raised onclick="colors.open()">colors</paper-button>
       <paper-button raised onclick="position.open()">size &amp; position</paper-button>
 
