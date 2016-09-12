@@ -19,30 +19,30 @@
   "homepage": "https://github.com/PolymerElements/paper-dialog",
   "ignore": [],
   "dependencies": {
-    "neon-animation": "https://github.com/notwaldorf/neon-animation.git#2.0-preview",
-    "paper-dialog-behavior": "https://github.com/notwaldorf/paper-dialog-behavior.git#2.0-preview",
-    "polymer": "https://github.com/PolymerLabs/alacarte.git#master"
+    "neon-animation": "PolymerElements/neon-animation#2.0-preview",
+    "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#2.0-preview",
+    "polymer": "Polymer/polymer#2.0-preview"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
-    "iron-demo-helpers": "https://github.com/notwaldorf/iron-demo-helpers.git#2.0-preview",
-    "iron-test-helpers": "https://github.com/notwaldorf/iron-test-helpers.git#2.0-preview",
-    "paper-button": "https://github.com/notwaldorf/paper-button.git#2.0-preview",
-    "paper-dialog-scrollable": "https://github.com/notwaldorf/paper-dialog-scrollable.git#2.0-preview",
+    "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0-preview",
+    "iron-test-helpers": "PolymerElements/iron-test-helpers#2.0-preview",
+    "paper-button": "PolymerElements/paper-button#2.0-preview",
+    "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#2.0-preview",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.0.0",
     "paper-item": "PolymerElements/paper-item#^1.0.0",
     "paper-menu": "PolymerElements/paper-menu#^1.0.0",
     "test-fixture": "PolymerElements/test-fixture#custom-elements-v1",
     "web-component-tester": "^4.0.0",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#v1-polymer-edits"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
   },
   "resolutions": {
     "paper-button": "2.0-preview",
     "paper-styles": "2.0-preview",
-    "polymer": "master",
+    "polymer": "2.0-preview",
     "iron-resizable-behavior": "2.0-preview",
     "test-fixture": "custom-elements-v1",
-    "webcomponentsjs": "v1-polymer-edits",
+    "webcomponentsjs": "v1",
     "iron-flex-layout": "2.0-preview",
     "iron-a11y-keys-behavior": "2.0-preview",
     "iron-fit-behavior": "2.0-preview",
