@@ -24,29 +24,38 @@
     "polymer": "Polymer/polymer#2.0-preview"
   },
   "devDependencies": {
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "iron-component-page": "PolymerElements/iron-component-page#2.0-preview",
     "iron-demo-helpers": "PolymerElements/iron-demo-helpers#2.0-preview",
     "iron-test-helpers": "PolymerElements/iron-test-helpers#2.0-preview",
     "paper-button": "PolymerElements/paper-button#2.0-preview",
     "paper-dialog-scrollable": "PolymerElements/paper-dialog-scrollable#2.0-preview",
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.0.0",
-    "paper-item": "PolymerElements/paper-item#^1.0.0",
-    "paper-menu": "PolymerElements/paper-menu#^1.0.0",
+    "paper-item": "PolymerElements/paper-item#2.0-preview",
+    "paper-listbox": "PolymerElements/paper-listbox#2.0-preview",
     "test-fixture": "PolymerElements/test-fixture#custom-elements-v1",
+    "web-animations-js": "web-animations/web-animations-js#^2.2.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
   },
   "resolutions": {
-    "paper-button": "2.0-preview",
-    "paper-styles": "2.0-preview",
     "polymer": "2.0-preview",
-    "iron-resizable-behavior": "2.0-preview",
+    "neon-animation": "2.0-preview",
     "test-fixture": "custom-elements-v1",
     "webcomponentsjs": "v1",
-    "iron-flex-layout": "2.0-preview",
     "iron-a11y-keys-behavior": "2.0-preview",
+    "iron-iconset-svg": "2.0-preview",
+    "iron-validatable-behavior": "2.0-preview",
+    "iron-icon": "2.0-preview",
+    "paper-behaviors": "2.0-preview",
+    "paper-ripple": "2.0-preview",
+    "paper-styles": "2.0-preview",
+    "iron-flex-layout": "2.0-preview",
+    "iron-behaviors": "2.0-preview",
+    "iron-meta": "2.0-preview",
+    "iron-checked-element-behavior": "2.0-preview",
+    "iron-selector": "2.0-preview",
     "iron-fit-behavior": "2.0-preview",
-    "iron-overlay-behavior": "2.0-preview",
-    "neon-animation": "2.0-preview"
+    "iron-resizable-behavior": "2.0-preview",
+    "iron-overlay-behavior": "2.0-preview"
   }
 }

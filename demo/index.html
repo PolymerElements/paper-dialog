@@ -19,6 +19,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <title>paper-dialog demo</title>
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
+  <script src="../../web-animations-js/web-animations.min.js"></script>
 
   <link rel="import" href="../paper-dialog.html">
   <link rel="import" href="../../paper-button/paper-button.html">
@@ -27,7 +28,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <link rel="import" href="../../paper-styles/demo-pages.html">
   <link rel="import" href="../../neon-animation/neon-animations.html">
   <link rel="import" href="../../paper-dropdown-menu/paper-dropdown-menu.html">
-  <link rel="import" href="../../paper-menu/paper-menu.html">
+  <link rel="import" href="../../paper-listbox/paper-listbox.html">
   <link rel="import" href="../../paper-item/paper-item.html">
 
 
@@ -112,7 +113,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-dialog id="dropdownDialog">
         <h2>Dialog Title</h2>
         <paper-dropdown-menu label="Value">
-          <paper-menu class="dropdown-content">
+          <paper-listbox class="dropdown-content">
             <paper-item>1</paper-item>
             <paper-item>2</paper-item>
             <paper-item>3</paper-item>
@@ -123,7 +124,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
             <paper-item>8</paper-item>
             <paper-item>9</paper-item>
             <paper-item>10</paper-item>
-          </paper-menu>
+          </paper-listbox>
         </paper-dropdown-menu>
       </paper-dialog>
 
