@@ -40,7 +40,7 @@
   "variants": {
     "1.x": {
       "dependencies": {
-        "neon-animation": "PolymerElements/neon-animation#2.0-preview",
+        "neon-animation": "PolymerElements/neon-animation#^1.0.0",
         "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^1.0.0",
         "polymer": "Polymer/polymer#^1.7.0"
       },
@@ -57,21 +57,10 @@
         "web-animations-js": "web-animations/web-animations-js#^2.2.0",
         "web-component-tester": "^4.0.0",
         "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
-      },
-      "resolutions": {
-        "polymer": "^1.7.0",
-        "test-fixture": "^1.0.0",
-        "webcomponentsjs": "^0.7.0",
-        "neon-animation": "2.0-preview",
-        "iron-selector": "^1.0.0",
-        "iron-resizable-behavior": "^1.0.0",
-        "iron-meta": "^1.0.0"
       }
     }
   },
   "resolutions": {
-    "polymer": "2.0-preview",
-    "test-fixture": "custom-elements-v1",
-    "webcomponentsjs": "v1"
+    "test-fixture": "custom-elements-v1"
   }
 }
