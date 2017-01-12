@@ -32,7 +32,7 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#2.0-preview",
     "paper-item": "PolymerElements/paper-item#2.0-preview",
     "paper-listbox": "PolymerElements/paper-listbox#2.0-preview",
-    "test-fixture": "PolymerElements/test-fixture#custom-elements-v1",
+    "test-fixture": "PolymerElements/test-fixture#^2.0.0",
     "web-animations-js": "web-animations/web-animations-js#^2.2.0",
     "web-component-tester": "^4.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
@@ -61,6 +61,6 @@
     }
   },
   "resolutions": {
-    "test-fixture": "custom-elements-v1"
+    "test-fixture": "^2.0.0"
   }
 }
