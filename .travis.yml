@@ -3,7 +3,6 @@ sudo: required
 before_script:
   - npm install -g bower polylint web-component-tester
   - bower install
-  - polylint
 env:
   global:
     - secure: >-
