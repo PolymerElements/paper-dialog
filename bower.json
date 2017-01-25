@@ -34,7 +34,7 @@
     "paper-listbox": "PolymerElements/paper-listbox#2.0-preview",
     "test-fixture": "PolymerElements/test-fixture#^2.0.0",
     "web-animations-js": "web-animations/web-animations-js#^2.2.0",
-    "web-component-tester": "^4.0.0",
+    "web-component-tester": "v6.0.0-prerelease.5",
     "webcomponentsjs": "webcomponents/webcomponentsjs#v1"
   },
   "variants": {
