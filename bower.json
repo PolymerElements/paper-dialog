@@ -61,6 +61,8 @@
     }
   },
   "resolutions": {
-    "test-fixture": "^2.0.0"
+    "test-fixture": "^2.0.0",
+    "webcomponentsjs": "gulp-all-the-things",
+    "html-imports": "cleanup"
   }
 }
