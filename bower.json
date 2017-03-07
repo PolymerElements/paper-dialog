@@ -21,7 +21,7 @@
   "dependencies": {
     "neon-animation": "PolymerElements/neon-animation#2.0-preview",
     "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#2.0-preview",
-    "polymer": "Polymer/polymer#2.0-preview"
+    "polymer": "Polymer/polymer#^2.0.0-rc.1"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#2.0-preview",
