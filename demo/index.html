@@ -111,6 +111,11 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       <paper-dialog id="dropdownDialog">
         <h2>Dialog Title</h2>
         <paper-dropdown-menu-light label="Value">
+          <!--
+            support hybrid mode: 
+            paper-dropdown-menu 1.x distributes via <content select=".dropdown-content">
+            paper-dropdown-menu 2.x distributes via <slot name="dropdown-content">
+          -->
           <paper-listbox class="dropdown-content" slot="dropdown-content">
             <paper-item>1</paper-item>
             <paper-item>2</paper-item>
@@ -145,12 +150,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <h3>Styling and positioning</h3>
   <demo-snippet>
     <template>
-      <custom-style><style is="custom-style">
+      <style>
         paper-dialog.colored {
           border: 2px solid;
-          border-color: var(--paper-green-500);
-          background-color: var(--paper-light-green-50);
-          color: var(--paper-green-500);
+          border-color: #4caf50;
+          background-color: #f1f8e9;
+          color: #4caf50;
         }
 
         paper-dialog.size-position {
@@ -161,7 +166,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           height: 300px;
           overflow: auto;
         }
-      </style></custom-style>
+      </style>
       <paper-button raised onclick="colors.open()">colors</paper-button>
       <paper-button raised onclick="position.open()">size &amp; position</paper-button>
 
