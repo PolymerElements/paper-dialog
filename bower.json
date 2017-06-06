@@ -10,7 +10,6 @@
     "overlay"
   ],
   "main": "paper-dialog.html",
-  "private": true,
   "repository": {
     "type": "git",
     "url": "git://github.com/PolymerElements/paper-dialog"
