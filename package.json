@@ -1,0 +1,27 @@
+{
+  "name": "@polymer/paper-dialog",
+  "flat": true,
+  "version": "3.0.0-pre.1",
+  "description": "A Material Design dialog",
+  "contributors": "The Polymer Authors",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "dialog",
+    "overlay"
+  ],
+  "main": "paper-dialog.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-dialog"
+  },
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/PolymerElements/paper-dialog",
+  "dependencies": {
+    "@polymer/neon-animation": "^3.0.0-pre.1",
+    "@polymer/paper-dialog-behavior": "^3.0.0-pre.1",
+    "@polymer/iron-overlay-behavior": "^3.0.0-pre.1",
+    "@polymer/polymer": "^3.0.0-pre.1"
+  },
+  "devDependencies": {}
+}
