@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../paper-dialog-behavior/paper-dialog-behavior.html">
 <link rel="import" href="../paper-dialog-behavior/paper-dialog-shared-styles.html">
 <!--
@@ -43,19 +42,11 @@ this element.
 ### Animations
 
 Set the `entry-animation` and/or `exit-animation` attributes to add an animation when the dialog
-is opened or closed. See the documentation in
-[PolymerElements/neon-animation](https://github.com/PolymerElements/neon-animation) for more info.
+is opened or closed. Included in the component are fade-in-animation (and out), scale-up-animation.
 
-For example:
-
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html">
-
-    <paper-dialog entry-animation="scale-up-animation"
-                  exit-animation="fade-out-animation">
-      <h2>Header</h2>
-      <div>Dialog body</div>
-    </paper-dialog>
+@deprecated This animation was based on the deprecated Neon-Animation component.  It now
+uses CSS Web Animations.  This change reduces code size, and uses the platform.  Any CSS3 animation
+class can be used.  
 
 ### Accessibility
 
@@ -70,40 +61,205 @@ element.
 
 <dom-module id="paper-dialog">
   <template>
-    <style include="paper-dialog-shared-styles"></style>
+    <style include="paper-dialog-shared-styles">
+      @keyframes keyFrameScaleUp {
+        0% {
+          transform: scale(0.0);
+        }
+        100% {
+          transform: scale(1.0);
+        }
+      }
+
+      @keyframes keyFrameFadeInOpacity {
+        0% {
+          opacity: 0;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @keyframes keyFrameFadeOutOpacity {
+        0% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 0;
+        }
+      }
+
+      @keyframes keyFrameScaleDown {
+        0% {
+          transform: scale(1.0);
+        }
+        100% {
+          transform: scale(0.0);
+        }
+      }
+
+      :host(.fade-in-animation) {
+        opacity: 0;
+        animation-delay: 0;
+        animation-name: keyFrameFadeInOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        animation-duration: var(--paper-dialog-duration-in, 500ms);
+        animation-fill-mode: forwards;
+        @apply --paper-dialog-animation;
+      }
+
+      :host(.fade-out-animation) {
+        opacity: 1;
+        animation-delay: 0;
+        animation-name: keyFrameFadeOutOpacity;
+        animation-iteration-count: 1;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        animation-duration: var(--paper-dialog-duration-out, 1500ms);
+        animation-fill-mode: forwards;
+        @apply --paper-dialog-animation;
+      }
+
+      :host(.scale-up-animation) {
+        transform: scale(0);
+        opacity: 1;
+        animation-delay: 0;
+        animation-name: keyFrameScaleUp;
+        animation-iteration-count: 1;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        animation-duration: var(--paper-dialog-duration-in, 500ms);
+        animation-fill-mode: forwards;
+        @apply --paper-dialog-animation;
+      }
+
+      .scale-down-animation {
+        transform: scale(1);
+        opacity: var(--paper-dialog-opacity, 0.9);
+        animation-delay: 0;
+        animation-name: keyFrameScaleDown;
+        animation-iteration-count: 1;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+        animation-duration: var(--paper-dialog-duration-out, 500ms);
+        animation-fill-mode: forwards;
+        @apply --paper-dialog-animation;
+      }      
+
+    </style>
     <slot></slot>
   </template>
 </dom-module>
 
 <script>
-Polymer({
-  is: 'paper-dialog',
+  Polymer({
+    is: 'paper-dialog',
 
-  behaviors: [
-    Polymer.PaperDialogBehavior,
-    Polymer.NeonAnimationRunnerBehavior
-  ],
+    behaviors: [
+      Polymer.PaperDialogBehavior
+    ],
 
-  listeners: {
-    'neon-animation-finish': '_onNeonAnimationFinish'
-  },
+    listeners: {
+      'webkitAnimationEnd': '_onAnimationEnd',
+    },
 
-  _renderOpened: function() {
-    this.cancelAnimation();
-    this.playAnimation('entry');
-  },
+    properties: {
+      /**
+       * Set Entry Animation 
+       */
+      entryAnimation: {
+        value: "fade-in-animation",
+        type: String
+      },
+      /**
+       * Set Exit Animation
+       */
+      exitAnimation: {
+        type: String
+      },
+      _showing: {
+        type: Boolean,
+        value: false
+      }
+    },
 
-  _renderClosed: function() {
-    this.cancelAnimation();
-    this.playAnimation('exit');
-  },
+    /**
+     * @return {void}
+     */
+    attached: function () {
+      this._addListeners();
+    },
 
-  _onNeonAnimationFinish: function() {
-    if (this.opened) {
-      this._finishRenderOpened();
-    } else {
-      this._finishRenderClosed();
+    /**
+     * @return {void}
+     */
+    detached: function () {
+      this._removeListeners();
+    },
+
+    _renderOpened: function () {
+      this._showing = true;
+      this.cancelAnimation();
+      this._entryAnimation();
+    },
+
+    _renderClosed: function () {
+      this._showing = false;
+      this.cancelAnimation();
+      this._exitAnimation();
+    },
+
+    _addListeners: function () {
+      this.listen(this, 'animationend', '_onAnimationEnd');
+    },
+    _removeListeners: function () {
+      this.unlisten(this, 'animationend', '_onAnimationEnd');
+    },
+
+    cancelAnimation: function () {
+      // Short-cut and cancel all animations and hide
+      this.classList.remove(this.entryAnimation);
+      this.classList.remove(this.exitAnimation);
+    },
+
+    _entryAnimation: function () {
+      if (!this.entryAnimation) {
+        this._onAnimationEnd();
+      } else {
+        this.classList.add(this.entryAnimation);
+        // If not animation _onAnimationEnd will not be called and will fail to change state
+        if (this._isSetAnimationValid()) {
+          this._onAnimationEnd();
+        }
+
+      }
+    },
+
+    _exitAnimation: function () {
+      if (!this.exitAnimation) {
+        this._onAnimationEnd();
+      } else {
+        this.classList.add(this.exitAnimation);
+        // If not animation _onAnimationEnd will not be called and will fail to change state
+        if (this._isSetAnimationValid()) {
+          this._onAnimationEnd();
+        }
+      }
+    },
+
+    _onAnimationEnd: function () {
+      // If no longer showing add class hidden to completely hide dialog
+      if (!this._showing) {
+        this.classList.remove(this.exitAnimation);
+        this._finishRenderClosed();
+      } else {
+        this._finishRenderOpened();
+      }
+    },
+
+    _isSetAnimationValid: function () {
+      // If CSS Class does not have animation-name considered not be an animation
+      var style = window.getComputedStyle(this);
+      return (style.getPropertyValue("animation-name") === "none")
     }
-  }
-});
+
+  });
 </script>

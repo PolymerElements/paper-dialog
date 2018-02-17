@@ -19,7 +19,6 @@
   "homepage": "https://github.com/PolymerElements/paper-dialog",
   "ignore": [],
   "dependencies": {
-    "neon-animation": "PolymerElements/neon-animation#1 - 2",
     "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#1 - 2",
     "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#1 - 2",
     "polymer": "Polymer/polymer#1.9 - 2"
