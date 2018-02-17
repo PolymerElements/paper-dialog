@@ -1,0 +1,10 @@
+{
+  "name": "@polymer/paper-dialog",
+  "private": true,
+  "description": "A Material Design dialog",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/PolymerElements/paper-dialog"
+  },
+  "license": "BSD-3-Clause"
+}
