@@ -46,6 +46,7 @@ You can still use the set the `entry-animation` and/or `exit-animation` attribut
 For example the below the CSS is first declared (this one slides from off screen).  You then point to the animation by selecting the class updating the `entry-animation`.  Note that the
 `exit-animation` is fade-out-animation which fades when the dialog is closed.
 ```html
+
 <style>
   @keyframes keyFrameSlideDownIn {
     0% {
