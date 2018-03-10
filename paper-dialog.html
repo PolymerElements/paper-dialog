@@ -85,7 +85,15 @@ Polymer({
   ],
 
   listeners: {
-    'neon-animation-finish': '_onNeonAnimationFinish'
+    'neon-animation-finish': '_onNeonAnimationFinish',
+    // workaround for https://github.com/PolymerElements/paper-dialog/issues/7
+    'iron-overlay-opened': '_patchOverlay'
+  },
+
+  _patchOverlay: function(e) {
+    if (e.target.withBackdrop) {
+      e.target.parentNode.insertBefore(e.target.backdropElement, e.target);
+    }
   },
 
   _renderOpened: function() {
