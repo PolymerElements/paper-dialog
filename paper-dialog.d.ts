@@ -10,6 +10,8 @@
 
 /// <reference path="../polymer/types/polymer.d.ts" />
 /// <reference path="../neon-animation/neon-animation-runner-behavior.d.ts" />
+/// <reference path="../paper-dialog-behavior/paper-dialog-behavior.d.ts" />
+/// <reference path="../paper-dialog-behavior/paper-dialog-shared-styles.d.ts" />
 
 /**
  * Material design: [Dialogs](https://www.google.com/design/spec/components/dialogs.html)
