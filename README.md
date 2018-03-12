@@ -39,18 +39,42 @@ this element.
 
 ### Animations
 
-Set the `entry-animation` and/or `exit-animation` attributes to add an animation when the dialog
-is opened or closed. See the documentation in
-[PolymerElements/neon-animation](https://github.com/PolymerElements/neon-animation) for more info.
+Animations used to use the neon-animation, however the library has since been @deprecated.
 
-For example:
+You can still use the set the `entry-animation` and/or `exit-animation` attributes to add an animation when the dialog is opened or closed. You can also create your own animation class.
 
+For example the below the CSS is first declared (this one slides from off screen).  You then point to the animation by selecting the class updating the `entry-animation`.  Note that the
+`exit-animation` is fade-out-animation which fades when the dialog is closed.
 ```html
-<link rel="import" href="../neon-animation/web-animations.html">
-<link rel="import" href="../neon-animation/animations/scale-up-animation.html">
-<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
 
-<paper-dialog entry-animation="scale-up-animation"
+<style>
+  @keyframes keyFrameSlideDownIn {
+    0% {
+      transform: translateY(-2000px);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.2;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
+
+  .my-animation {
+    transform: translateY(-2000px);
+    opacity: 0;
+    animation-delay: 0;
+    animation-name: keyFrameSlideDownIn;
+    animation-iteration-count: 1;
+    animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    animation-duration: 500ms;
+    animation-fill-mode: forwards;
+  }
+</style>
+
+<paper-dialog entry-animation="my-animation"
               exit-animation="fade-out-animation">
   <h2>Header</h2>
   <div>Dialog body</div>
