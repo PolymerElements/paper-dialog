@@ -56,7 +56,7 @@
  *
  * These animations are not based on the deprecated `neon-animation` component, and use CSS keyframe animations.
  * This change reduces code size, and uses the platform. You can implement custom entry/exit animations using
- * CSS keyframe animations; define the animation keyframes, a CSS class for the animation, and assign the class to the `entry/ext-animation`, e.g.
+ * CSS keyframe animations; define the animation keyframes, a CSS class for the animation, and assign the class to the `entry/exit-animation`, e.g.
  *
  *     <style>
  *       @keyframes appear-from-top {
