@@ -89,16 +89,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     suite('animations', function() {
 
       var dialog, innerDialog;
-      var animationDuration = 50;
-      // We wait some extra ms so that `animationend` can propagate up and
-      // be captured by the test spies.
-      var timeoutMs = animationDuration + 50;
       setup(function() {
         dialog = fixture('animations');
         innerDialog = dialog.querySelector('paper-dialog');
         // Make it quick.
         dialog.style.animationDuration =
-          innerDialog.style.animationDuration = animationDuration + 'ms';
+          innerDialog.style.animationDuration = '50ms';
       });
 
       test('should not animate by default', function(done) {
@@ -106,44 +102,54 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         var spy = sinon.stub();
         dialog.addEventListener('animationend', spy);
         dialog.open();
-        setTimeout(function() {
-          assert.isTrue(dialog.opened, 'opened ok');
-          assert.equal(spy.callCount, 0, 'no open animation');
-          dialog.close();
-          setTimeout(function() {
-            assert.isFalse(dialog.opened, 'closed ok');
-            assert.equal(spy.callCount, 0, 'no close animation');
-            done();
-          }, timeoutMs);
-        }, timeoutMs);
+        dialog.addEventListener('iron-overlay-opened', function() {
+          // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 0, 'no open animation');
+            dialog.close();
+            dialog.addEventListener('iron-overlay-closed', function() {
+              // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+              requestAnimationFrame(function() {
+                assert.equal(spy.callCount, 0, 'no close animation');
+                done();
+              });
+            });
+          });
+        });
       });
 
       test('should animate on opened and closed', function(done) {
         var spy = sinon.stub();
         dialog.addEventListener('animationend', spy);
         dialog.open();
-        setTimeout(function() {
-          assert.isTrue(dialog.opened, 'opened ok');
-          assert.equal(spy.callCount, 1, 'open animation ok');
-          dialog.close();
-          setTimeout(function() {
-            assert.isFalse(dialog.opened, 'closed ok');
-            assert.equal(spy.callCount, 2, 'close animation ok');
-            done();
-          }, timeoutMs);
-        }, timeoutMs);
+        dialog.addEventListener('iron-overlay-opened', function() {
+          // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 1, 'open animation ok');
+            dialog.close();
+            dialog.addEventListener('iron-overlay-closed', function() {
+              // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+              requestAnimationFrame(function() {
+                assert.equal(spy.callCount, 2, 'close animation ok');
+                done();
+              });
+            });
+          });
+        });
       });
-      
+
       test('should recognize undefined animations', function(done) {
         dialog.entryAnimation = 'undefined-animation'
         var spy = sinon.stub();
         dialog.addEventListener('animationend', spy);
         dialog.open();
-        setTimeout(function() {
-          assert.isTrue(dialog.opened, 'opened ok');
-          assert.equal(spy.callCount, 0, 'open animation ok');
-          done();
-        }, timeoutMs);
+        dialog.addEventListener('iron-overlay-opened', function() {
+          // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 0, 'open animation ok');
+            done();
+          });
+        });
       });
 
       test('should remove animation classes when done animating', function(done) {
@@ -159,23 +165,16 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       });
 
       test('should handle only its own animations', function(done) {
-
-        var callCount = 0;
-        dialog.addEventListener('iron-overlay-opened', function(event) {
-          // `iron-overlay-opened` is composed and bubbles, so increase the count only
-          // if it got triggered by `dialog`.
-          if (event.target === dialog) {
-            callCount++;
-          }
-        });
         dialog.open();
         innerDialog.open();
-        setTimeout(function() {
-          assert.isTrue(dialog.opened, 'dialog opened');
-          assert.isTrue(innerDialog.opened, 'innerDialog opened');
-          assert.equal(callCount, 1, 'opened event fired once');
-          done();
-        }, timeoutMs);
+        dialog.addEventListener('iron-overlay-opened', function() {
+          // `iron-overlay-opened` is composed and bubbles, so check who triggered
+          // it. If it got triggered multiple times, the test will fail as we'd be
+          // calling `done` twice.
+          if (event.target === dialog) {
+            done();
+          }
+        });
       });
 
     });
