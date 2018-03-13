@@ -103,17 +103,17 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         dialog.addEventListener('animationend', spy);
         dialog.open();
         dialog.addEventListener('iron-overlay-opened', function() {
-          // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+          // Wait for `animationend` to propagate up.
           requestAnimationFrame(function() {
             assert.equal(spy.callCount, 0, 'no open animation');
             dialog.close();
-            dialog.addEventListener('iron-overlay-closed', function() {
-              // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
-              requestAnimationFrame(function() {
-                assert.equal(spy.callCount, 0, 'no close animation');
-                done();
-              });
-            });
+          });
+        });
+        dialog.addEventListener('iron-overlay-closed', function() {
+          // Wait for `animationend` to propagate up.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 0, 'no close animation');
+            done();
           });
         });
       });
@@ -123,14 +123,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         dialog.addEventListener('animationend', spy);
         dialog.open();
         dialog.addEventListener('iron-overlay-opened', function() {
-          // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+          // Wait for `animationend` to propagate up.
           requestAnimationFrame(function() {
             assert.equal(spy.callCount, 1, 'open animation ok');
             dialog.close();
           });
         });
         dialog.addEventListener('iron-overlay-closed', function() {
-          // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+          // Wait for `animationend` to propagate up.
           requestAnimationFrame(function() {
             assert.equal(spy.callCount, 2, 'close animation ok');
             done();
@@ -144,7 +144,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         dialog.addEventListener('animationend', spy);
         dialog.open();
         dialog.addEventListener('iron-overlay-opened', function() {
-          // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+          // Wait for `animationend` to propagate up.
           requestAnimationFrame(function() {
             assert.equal(spy.callCount, 0, 'open animation ok');
             done();

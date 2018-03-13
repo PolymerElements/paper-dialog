@@ -192,7 +192,6 @@ element.
     },
 
     cancelAnimation: function() {
-      // Short-cut and cancel all animations and hide
       this.classList.remove(this.entryAnimation);
       this.classList.remove(this.exitAnimation);
     },
@@ -203,34 +202,30 @@ element.
         this.classList.add(animation);
         if (this._willAnimate() === false) {
           console.info(animation + ' animation was not played');
-          this.classList.remove(animation);
-          this._finishRender();
+          this._onAnimationEnd();
         }
       } else {
-        this._finishRender();
+        this._onAnimationEnd();
       }
     },
 
     /**
-     * @param {!Event} event
+     * @param {Event=} event
      * @private
      */
     _onAnimationEnd: function(event) {
-      if (event.target !== this) {
+      if (event && event.target !== this) {
         return;
       }
-      // Remove the animation classes.
-      this.cancelAnimation();
-      this._finishRender();
-    },
-
-    /**
-     * @private
-     */
-    _finishRender: function() {
       if (this.opened) {
+        this.classList.remove(this.entryAnimation);
         this._finishRenderOpened();
       } else {
+        // Ensure to update display before removing the 
+        // animation class, so that user doesn't see flickering
+        // e.g. dialog returning to its initial position/opacity.
+        this.style.display = 'none';
+        this.classList.remove(this.exitAnimation);
         this._finishRenderClosed();
       }
     },
