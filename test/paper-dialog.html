@@ -127,13 +127,13 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           requestAnimationFrame(function() {
             assert.equal(spy.callCount, 1, 'open animation ok');
             dialog.close();
-            dialog.addEventListener('iron-overlay-closed', function() {
-              // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
-              requestAnimationFrame(function() {
-                assert.equal(spy.callCount, 2, 'close animation ok');
-                done();
-              });
-            });
+          });
+        });
+        dialog.addEventListener('iron-overlay-closed', function() {
+          // Wait a RAF so that  `animationend` can propagate up and be captured by `spy`.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 2, 'close animation ok');
+            done();
           });
         });
       });
