@@ -59,7 +59,7 @@
  * CSS keyframe animations; define the animation keyframes, a CSS class for the animation, and assign the class to the `entry/exit-animation`, e.g.
  *
  *     <style>
- *       @keyframes appear-from-top {
+ *       \@keyframes appear-from-top {
  *         0% {
  *           transform: translateY(-2000px);
  *           opacity: 0;
