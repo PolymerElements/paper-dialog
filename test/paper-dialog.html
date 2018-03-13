@@ -167,7 +167,7 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
       test('should handle only its own animations', function(done) {
         dialog.open();
         innerDialog.open();
-        dialog.addEventListener('iron-overlay-opened', function() {
+        dialog.addEventListener('iron-overlay-opened', function(event) {
           // `iron-overlay-opened` is composed and bubbles, so check who triggered
           // it. If it got triggered multiple times, the test will fail as we'd be
           // calling `done` twice.
