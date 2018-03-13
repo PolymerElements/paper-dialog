@@ -30,7 +30,7 @@ buttons. Focus will be given to the `dialog-confirm` button when the dialog is o
 ### Changes in 2.0
 - `paper-dialog-behavior 2.0` styles only direct `h2` and `.buttons` children of the dialog because of how [`::slotted` works](https://developers.google.com/web/fundamentals/primers/shadowdom/?hl=en#stylinglightdom) 
 (compound selector will select only top level nodes)
-- `neon-animation 2.0` doesn't import the Web Animations polyfill, so you'll have to import it ([see Animations section](#Animations))
+- `<paper-dialog>` uses CSS animation keyframes instead of `neon-animation`, ([see Animations section](#Animations))
 
 ### Styling
 
@@ -40,17 +40,40 @@ this element.
 ### Animations
 
 Set the `entry-animation` and/or `exit-animation` attributes to add an animation when the dialog
-is opened or closed. See the documentation in
-[PolymerElements/neon-animation](https://github.com/PolymerElements/neon-animation) for more info.
+is opened or closed. Included in the component are:
+- fade-in-animation
+- fade-out-animation
+- scale-up-animation
+- scale-down-animation
 
-For example:
+These animations are not based on the deprecated `neon-animation` component, and use CSS keyframe animations.
+This change reduces code size, and uses the platform. You can implement custom entry/exit animations using
+CSS keyframe animations; define the animation keyframes, a CSS class for the animation, and assign the class to the `entry/ext-animation`, e.g.
 
 ```html
-<link rel="import" href="../neon-animation/web-animations.html">
-<link rel="import" href="../neon-animation/animations/scale-up-animation.html">
-<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
+<style>
+  @keyframes appear-from-top {
+    0% {
+      transform: translateY(-2000px);
+      opacity: 0;
+    }
+    10% {
+      opacity: 0.2;
+    }
+    100% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 
-<paper-dialog entry-animation="scale-up-animation"
+  .appear-from-top {
+    animation-name: appear-from-top;
+    animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+    animation-duration: 800ms;
+  }
+</style>
+
+<paper-dialog entry-animation="appear-from-top"
               exit-animation="fade-out-animation">
   <h2>Header</h2>
   <div>Dialog body</div>
@@ -61,5 +84,4 @@ For example:
 
 See the docs for `Polymer.PaperDialogBehavior` for accessibility features implemented by this
 element.
-
 

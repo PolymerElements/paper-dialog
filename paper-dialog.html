@@ -9,7 +9,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 -->
 
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../neon-animation/neon-animation-runner-behavior.html">
 <link rel="import" href="../paper-dialog-behavior/paper-dialog-behavior.html">
 <link rel="import" href="../paper-dialog-behavior/paper-dialog-shared-styles.html">
 <!--
@@ -35,6 +34,11 @@ buttons. Focus will be given to the `dialog-confirm` button when the dialog is o
       </div>
     </paper-dialog>
 
+### Changes in 2.0
+- `paper-dialog-behavior 2.0` styles only direct `h2` and `.buttons` children of the dialog because of how [`::slotted` works](https://developers.google.com/web/fundamentals/primers/shadowdom/?hl=en#stylinglightdom) 
+(compound selector will select only top level nodes)
+- `<paper-dialog>` uses CSS animation keyframes instead of `neon-animation`, ([see Animations section](#Animations))
+
 ### Styling
 
 See the docs for `Polymer.PaperDialogBehavior` for the custom properties available for styling
@@ -43,15 +47,39 @@ this element.
 ### Animations
 
 Set the `entry-animation` and/or `exit-animation` attributes to add an animation when the dialog
-is opened or closed. See the documentation in
-[PolymerElements/neon-animation](https://github.com/PolymerElements/neon-animation) for more info.
+is opened or closed. Included in the component are:
+- fade-in-animation
+- fade-out-animation
+- scale-up-animation
+- scale-down-animation
 
-For example:
+These animations are not based on the deprecated `neon-animation` component, and use CSS keyframe animations.
+This change reduces code size, and uses the platform. You can implement custom entry/exit animations using
+CSS keyframe animations; define the animation keyframes, a CSS class for the animation, and assign the class to the `entry/ext-animation`, e.g.
 
-    <link rel="import" href="components/neon-animation/animations/scale-up-animation.html">
-    <link rel="import" href="components/neon-animation/animations/fade-out-animation.html">
+    <style>
+      @keyframes appear-from-top {
+        0% {
+          transform: translateY(-2000px);
+          opacity: 0;
+        }
+        10% {
+          opacity: 0.2;
+        }
+        100% {
+          transform: translateY(0);
+          opacity: 1;
+        }
+      }
 
-    <paper-dialog entry-animation="scale-up-animation"
+      .appear-from-top {
+        animation-name: appear-from-top;
+        animation-timing-function: cubic-bezier(0.0, 0.0, 0.2, 1);
+        animation-duration: 500ms;
+      }
+    </style>
+
+    <paper-dialog entry-animation="appear-from-top"
                   exit-animation="fade-out-animation">
       <h2>Header</h2>
       <div>Dialog body</div>
@@ -70,40 +98,151 @@ element.
 
 <dom-module id="paper-dialog">
   <template>
-    <style include="paper-dialog-shared-styles"></style>
+    <style include="paper-dialog-shared-styles">
+      :host {
+        animation-duration: 500ms;
+        animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+      }
+
+      :host(.fade-in-animation) {
+        animation-name: fade-in-animation;
+      }
+
+      @keyframes fade-in-animation {
+        from {
+          opacity: 0;
+        }
+      }
+
+      :host(.fade-out-animation) {
+        animation-name: fade-out-animation;
+      }
+
+      @keyframes fade-out-animation {
+        to {
+          opacity: 0;
+        }
+      }
+
+      :host(.scale-up-animation) {
+        animation-name: scale-up-animation;
+      }
+
+      @keyframes scale-up-animation {
+        from {
+          transform: scale(0.0);
+        }
+      }
+
+      :host(.scale-down-animation) {
+        animation-name: scale-down-animation;
+      }
+
+      @keyframes scale-down-animation {
+        to {
+          transform: scale(0.0);
+        }
+      }
+    </style>
     <slot></slot>
   </template>
 </dom-module>
 
 <script>
-Polymer({
-  is: 'paper-dialog',
+  Polymer({
+    is: 'paper-dialog',
 
-  behaviors: [
-    Polymer.PaperDialogBehavior,
-    Polymer.NeonAnimationRunnerBehavior
-  ],
+    behaviors: [
+      Polymer.PaperDialogBehavior
+    ],
 
-  listeners: {
-    'neon-animation-finish': '_onNeonAnimationFinish'
-  },
+    listeners: {
+      'animationend': '_onAnimationEnd',
+    },
 
-  _renderOpened: function() {
-    this.cancelAnimation();
-    this.playAnimation('entry');
-  },
+    properties: {
+      /**
+       * Set Entry Animation
+       */
+      entryAnimation: {
+        type: String
+      },
+      /**
+       * Set Exit Animation
+       */
+      exitAnimation: {
+        type: String
+      }
+    },
 
-  _renderClosed: function() {
-    this.cancelAnimation();
-    this.playAnimation('exit');
-  },
+    /**
+     * @private
+     */
+    _renderOpened: function() {
+      this.cancelAnimation();
+      this.playAnimation();
+    },
 
-  _onNeonAnimationFinish: function() {
-    if (this.opened) {
-      this._finishRenderOpened();
-    } else {
-      this._finishRenderClosed();
+    /**
+     * @private
+     */
+    _renderClosed: function() {
+      this.cancelAnimation();
+      this.playAnimation();
+    },
+
+    cancelAnimation: function() {
+      // Short-cut and cancel all animations and hide
+      this.classList.remove(this.entryAnimation);
+      this.classList.remove(this.exitAnimation);
+    },
+
+    playAnimation: function() {
+      const animation = this.opened ? this.entryAnimation : this.exitAnimation;
+      if (animation) {
+        this.classList.add(animation);
+        if (this._willAnimate() === false) {
+          console.info(animation + ' animation was not played');
+          this.classList.remove(animation);
+          this._finishRender();
+        }
+      } else {
+        this._finishRender();
+      }
+    },
+
+    /**
+     * @param {!Event} event
+     * @private
+     */
+    _onAnimationEnd: function(event) {
+      if (event.target !== this) {
+        return;
+      }
+      this.classList.remove(event.animationName);
+      this._finishRender();
+    },
+
+    /**
+     * @private
+     */
+    _finishRender: function() {
+      if (this.opened) {
+        this._finishRenderOpened();
+      } else {
+        this._finishRenderClosed();
+      }
+    },
+
+    /**
+     * @private
+     */
+     _willAnimate: function() {
+      // If CSS Class does not have animation-name considered not be an animation
+      var style = window.getComputedStyle(this);
+      return (style.getPropertyValue('animation-name') !== 'none' &&
+        style.getPropertyValue('animation-duration') !== '0ms');
     }
-  }
-});
+
+  });
 </script>
