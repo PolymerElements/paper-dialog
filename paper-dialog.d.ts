@@ -67,10 +67,6 @@
  *         10% {
  *           opacity: 0.2;
  *         }
- *         100% {
- *           transform: translateY(0);
- *           opacity: 1;
- *         }
  *       }
  *
  *       .appear-from-top {
