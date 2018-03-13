@@ -24,11 +24,6 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 </head>
 
 <body>
-  <style>
-    paper-dialog {
-      animation-duration: 50ms;
-    }
-  </style>
 
   <test-fixture id="basic">
     <template>
@@ -72,7 +67,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <script>
     suite('modal', function() {
 
-      test('backdrop element remains opened when closing top modal, closes when all modals are closed', function(done) {
+      test('backdrop element remains opened when closing top modal, closes when all modals are closed', function(
+        done) {
         var modals = fixture('opened-modals');
         modals[1].addEventListener('iron-overlay-opened', function() {
           assert.isTrue(modals[1].backdropElement.opened, 'backdrop is open');
@@ -92,41 +88,66 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
     suite('animations', function() {
 
-      var dialog;
+      var dialog, innerDialog;
+      var animationDuration = 50;
+      // We wait some extra ms so that `animationend` can propagate up and
+      // be captured by the test spies.
+      var timeoutMs = animationDuration + 50;
       setup(function() {
         dialog = fixture('animations');
+        innerDialog = dialog.querySelector('paper-dialog');
+        // Make it quick.
+        dialog.style.animationDuration =
+          innerDialog.style.animationDuration = animationDuration + 'ms';
       });
 
       test('should not animate by default', function(done) {
         var dialog = fixture('basic');
         var spy = sinon.stub();
         dialog.addEventListener('animationend', spy);
-        dialog.addEventListener('iron-overlay-opened', function() {
+        dialog.open();
+        setTimeout(function() {
+          assert.isTrue(dialog.opened, 'opened ok');
           assert.equal(spy.callCount, 0, 'no open animation');
           dialog.close();
-        });
-        dialog.addEventListener('iron-overlay-closed', function() {
-          assert.equal(spy.callCount, 0, 'no close animation');
-          done();
-        });
-        dialog.open();
+          setTimeout(function() {
+            assert.isFalse(dialog.opened, 'closed ok');
+            assert.equal(spy.callCount, 0, 'no close animation');
+            done();
+          }, timeoutMs);
+        }, timeoutMs);
       });
 
       test('should animate on opened and closed', function(done) {
         var spy = sinon.stub();
         dialog.addEventListener('animationend', spy);
-        dialog.addEventListener('iron-overlay-opened', function() {
+        dialog.open();
+        setTimeout(function() {
+          assert.isTrue(dialog.opened, 'opened ok');
           assert.equal(spy.callCount, 1, 'open animation ok');
           dialog.close();
-        });
-        dialog.addEventListener('iron-overlay-closed', function() {
-          assert.equal(spy.callCount, 2, 'close animation ok');
-          done();
-        });
+          setTimeout(function() {
+            assert.isFalse(dialog.opened, 'closed ok');
+            assert.equal(spy.callCount, 2, 'close animation ok');
+            done();
+          }, timeoutMs);
+        }, timeoutMs);
+      });
+      
+      test('should recognize undefined animations', function(done) {
+        dialog.entryAnimation = 'undefined-animation'
+        var spy = sinon.stub();
+        dialog.addEventListener('animationend', spy);
         dialog.open();
+        setTimeout(function() {
+          assert.isTrue(dialog.opened, 'opened ok');
+          assert.equal(spy.callCount, 0, 'open animation ok');
+          done();
+        }, timeoutMs);
       });
 
       test('should remove animation classes when done animating', function(done) {
+        dialog.open();
         dialog.addEventListener('iron-overlay-opened', function() {
           assert.isFalse(dialog.classList.contains(dialog.entryAnimation), 'no entry animation class');
           dialog.close();
@@ -135,20 +156,26 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           assert.isFalse(dialog.classList.contains(dialog.exitAnimation), 'no exit animation class');
           done();
         });
-        dialog.open();
       });
 
       test('should handle only its own animations', function(done) {
-        var dialog = fixture('animations');
-        var spy = sinon.stub();
-        dialog.addEventListener('iron-overlay-opened', spy);
-        // Open both, observe if event was triggered twice.
+
+        var callCount = 0;
+        dialog.addEventListener('iron-overlay-opened', function(event) {
+          // `iron-overlay-opened` is composed and bubbles, so increase the count only
+          // if it got triggered by `dialog`.
+          if (event.target === dialog) {
+            callCount++;
+          }
+        });
         dialog.open();
-        dialog.querySelector('paper-dialog').open();
+        innerDialog.open();
         setTimeout(function() {
-          assert.equal(spy.callCount, 1, 'opened event fired once');
+          assert.isTrue(dialog.opened, 'dialog opened');
+          assert.isTrue(innerDialog.opened, 'innerDialog opened');
+          assert.equal(callCount, 1, 'opened event fired once');
           done();
-        }, 300);
+        }, timeoutMs);
       });
 
     });

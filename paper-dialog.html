@@ -219,7 +219,8 @@ element.
       if (event.target !== this) {
         return;
       }
-      this.classList.remove(event.animationName);
+      // Remove the animation classes.
+      this.cancelAnimation();
       this._finishRender();
     },
 
