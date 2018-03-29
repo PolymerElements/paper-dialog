@@ -102,8 +102,6 @@ interface PaperDialogElement extends Polymer.Element, Polymer.PaperDialogBehavio
    * but you can use custom animations too. See the Animations section in the README.md.
    */
   exitAnimation: string|null|undefined;
-  cancelAnimation(): void;
-  playAnimation(): void;
 }
 
 interface HTMLElementTagNameMap {
