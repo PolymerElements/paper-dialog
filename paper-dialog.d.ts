@@ -36,7 +36,7 @@
  *     </paper-dialog>
  *
  * ### Changes in 2.0
- * - `paper-dialog-behavior 2.0` styles only direct `h2` and `.buttons` children of the dialog because of how [`::slotted` works](https://developers.google.com/web/fundamentals/primers/shadowdom/?hl=en#stylinglightdom) 
+ * - `paper-dialog-behavior 2.0` styles only direct `h2` and `.buttons` children of the dialog because of how [`::slotted` works](https://developers.google.com/web/fundamentals/primers/shadowdom/?hl=en#stylinglightdom)
  * (compound selector will select only top level nodes)
  * - `<paper-dialog>` uses CSS animation keyframes instead of `neon-animation`, ([see Animations section](#Animations))
  *
