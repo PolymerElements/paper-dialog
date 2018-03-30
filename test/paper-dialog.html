@@ -53,10 +53,22 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
+  <test-fixture id="animations">
+    <template>
+      <paper-dialog entry-animation="fade-in-animation" exit-animation="fade-out-animation">
+        <p>Dialog</p>
+        <paper-dialog entry-animation="fade-in-animation">
+          <p>Dialog</p>
+        </paper-dialog>
+      </paper-dialog>
+    </template>
+  </test-fixture>
+
   <script>
     suite('modal', function() {
 
-      test('backdrop element remains opened when closing top modal, closes when all modals are closed', function(done) {
+      test('backdrop element remains opened when closing top modal, closes when all modals are closed', function(
+        done) {
         var modals = fixture('opened-modals');
         modals[1].addEventListener('iron-overlay-opened', function() {
           assert.isTrue(modals[1].backdropElement.opened, 'backdrop is open');
@@ -69,6 +81,99 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         modals[0].addEventListener('iron-overlay-closed', function() {
           assert.isFalse(modals[0].backdropElement.opened, 'backdrop is closed');
           done();
+        });
+      });
+
+    });
+
+    suite('animations', function() {
+
+      var dialog, innerDialog;
+      setup(function() {
+        dialog = fixture('animations');
+        innerDialog = dialog.querySelector('paper-dialog');
+        // Make it quick.
+        dialog.style.animationDuration =
+          innerDialog.style.animationDuration = '50ms';
+      });
+
+      test('should not animate by default', function(done) {
+        var dialog = fixture('basic');
+        var spy = sinon.stub();
+        dialog.addEventListener('animationend', spy);
+        dialog.open();
+        dialog.addEventListener('iron-overlay-opened', function() {
+          // Wait for `animationend` to propagate up.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 0, 'no open animation');
+            dialog.close();
+          });
+        });
+        dialog.addEventListener('iron-overlay-closed', function() {
+          // Wait for `animationend` to propagate up.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 0, 'no close animation');
+            done();
+          });
+        });
+      });
+
+      test('should animate on opened and closed', function(done) {
+        var spy = sinon.stub();
+        dialog.addEventListener('animationend', spy);
+        dialog.open();
+        dialog.addEventListener('iron-overlay-opened', function() {
+          // Wait for `animationend` to propagate up.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 1, 'open animation ok');
+            dialog.close();
+          });
+        });
+        dialog.addEventListener('iron-overlay-closed', function() {
+          // Wait for `animationend` to propagate up.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 2, 'close animation ok');
+            done();
+          });
+        });
+      });
+
+      test('should recognize undefined animations', function(done) {
+        dialog.entryAnimation = 'undefined-animation'
+        var spy = sinon.stub();
+        dialog.addEventListener('animationend', spy);
+        dialog.open();
+        dialog.addEventListener('iron-overlay-opened', function() {
+          // Wait for `animationend` to propagate up.
+          requestAnimationFrame(function() {
+            assert.equal(spy.callCount, 0, 'open animation ok');
+            done();
+          });
+        });
+      });
+
+      test('should remove animation classes when done animating', function(done) {
+        dialog.open();
+        dialog.addEventListener('iron-overlay-opened', function() {
+          assert.isFalse(dialog.classList.contains(dialog.entryAnimation), 'no entry animation class');
+          dialog.close();
+        });
+        dialog.addEventListener('iron-overlay-closed', function() {
+          assert.isFalse(dialog.classList.contains(dialog.exitAnimation), 'no exit animation class');
+          done();
+        });
+      });
+
+      test('should handle only its own animations', function(done) {
+        dialog.open();
+        innerDialog.open();
+        dialog.addEventListener('iron-overlay-opened', function(event) {
+          // `iron-overlay-opened` is composed and bubbles, so check who triggered
+          // it. If it got triggered multiple times, the test will fail as we'd be
+          // calling `done` twice.
+          if (event.target === dialog) {
+            done();
+          }
         });
       });
 

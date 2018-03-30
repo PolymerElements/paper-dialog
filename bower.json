@@ -19,7 +19,6 @@
   "homepage": "https://github.com/PolymerElements/paper-dialog",
   "ignore": [],
   "dependencies": {
-    "neon-animation": "PolymerElements/neon-animation#1 - 2",
     "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#1 - 2",
     "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#1 - 2",
     "polymer": "Polymer/polymer#1.9 - 2"
@@ -33,14 +32,12 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#1 - 2",
     "paper-item": "PolymerElements/paper-item#1 - 2",
     "paper-listbox": "PolymerElements/paper-listbox#1 - 2",
-    "web-animations-js": "web-animations/web-animations-js#^2.2.0",
     "web-component-tester": "^6.0.0",
     "webcomponentsjs": "webcomponents/webcomponentsjs#^1.0.0"
   },
   "variants": {
     "1.x": {
       "dependencies": {
-        "neon-animation": "PolymerElements/neon-animation#^1.0.0",
         "paper-dialog-behavior": "PolymerElements/paper-dialog-behavior#^1.0.0",
         "iron-overlay-behavior": "PolymerElements/iron-overlay-behavior#^1.7.0",
         "polymer": "Polymer/polymer#^1.9"
@@ -54,7 +51,6 @@
         "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.0.0",
         "paper-item": "PolymerElements/paper-item#^1.0.0",
         "paper-listbox": "PolymerElements/paper-listbox#^1.0.0",
-        "web-animations-js": "web-animations/web-animations-js#^2.2.0",
         "web-component-tester": "^4.0.0",
         "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0"
       },
