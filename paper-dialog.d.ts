@@ -90,6 +90,13 @@
 interface PaperDialogElement extends Polymer.Element, Polymer.PaperDialogBehavior {
 
   /**
+   * Deprecated, use `entryAnimation` and `exitAnimation` instead.
+   * `paper-dialog` doesn't depend anymore on `neon-animation`, and this property is kept
+   * here to not break bindings. Setting it won't have effects on the animation.
+   */
+  animationConfig: object|null|undefined;
+
+  /**
    * The class defining the entry animation. `<paper-dialog>` ships
    * `fade-in-animation, fade-out-animation, scale-up-animation, scale-down-animation`,
    * but you can use custom animations too. See the Animations section in the README.md.
@@ -102,6 +109,7 @@ interface PaperDialogElement extends Polymer.Element, Polymer.PaperDialogBehavio
    * but you can use custom animations too. See the Animations section in the README.md.
    */
   exitAnimation: string|null|undefined;
+  ready(): void;
 }
 
 interface HTMLElementTagNameMap {

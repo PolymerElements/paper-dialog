@@ -159,6 +159,16 @@ element.
 
     properties: {
       /**
+       * Deprecated, use `entryAnimation` and `exitAnimation` instead.
+       * `paper-dialog` doesn't depend anymore on `neon-animation`, and this property is kept
+       * here to not break bindings. Setting it won't have effects on the animation.
+       * @deprecated
+       */
+      animationConfig: {
+        type: Object
+      },
+
+      /**
        * The class defining the entry animation. `<paper-dialog>` ships
        * `fade-in-animation, fade-out-animation, scale-up-animation, scale-down-animation`,
        * but you can use custom animations too. See the Animations section in the README.md.
@@ -176,28 +186,56 @@ element.
       }
     },
 
+    ready: function() {
+      if (this.animationConfig) {
+        console.warn('Configuring animations through animationConfig is no longer supported.' +
+          'Use entryAnimation and exitAnimation instead.');
+      } else if (this.entryAnimation || this.exitAnimation) {
+        // Keep this for backwards-compat.
+        this.animationConfig = {
+          entry: {
+            name: this.entryAnimation
+          },
+          exit: {
+            name: this.exitAnimation
+          },
+        };
+      }
+    },
+
     /**
      * @private
      */
     _renderOpened: function() {
-      this._playAnimation();
+      this._cancelAnimation();
+      this._playAnimation(this.entryAnimation);
     },
 
     /**
      * @private
      */
     _renderClosed: function() {
-      this._playAnimation();
+      this._cancelAnimation();
+      this._playAnimation(this.exitAnimation);
     },
 
     /**
      * @private
      */
-    _playAnimation: function() {
-      this.classList.remove(this.entryAnimation);
-      this.classList.remove(this.exitAnimation);
-      const animation = this.opened ? this.entryAnimation : this.exitAnimation;
+    _cancelAnimation: function() {
+      if (this._pendingAnimation) {
+        this.classList.remove(this._pendingAnimation);
+        this._pendingAnimation = null;
+      }
+    },
+
+    /**
+     * @param {string=} animation
+     * @private
+     */
+    _playAnimation: function(animation) {
       if (animation) {
+        this._pendingAnimation = animation;
         this.classList.add(animation);
         if (this._willAnimate() === false) {
           console.info(animation + ' animation was not played');
@@ -216,8 +254,7 @@ element.
       if (event && event.target !== this) {
         return;
       }
-      this.classList.remove(this.entryAnimation);
-      this.classList.remove(this.exitAnimation);
+      this._cancelAnimation();
       if (this.opened) {
         this._finishRenderOpened();
       } else {
@@ -228,7 +265,7 @@ element.
     /**
      * @private
      */
-     _willAnimate: function() {
+    _willAnimate: function() {
       // If CSS Class does not have animation-name considered not be an animation
       var style = window.getComputedStyle(this);
       return (style.getPropertyValue('animation-name') !== 'none' &&
