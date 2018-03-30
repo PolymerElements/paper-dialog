@@ -112,21 +112,21 @@ interface PaperDialogElement extends Polymer.Element, Polymer.PaperDialogBehavio
   ready(): void;
 
   /**
-   * `iron-dropdown` doesn't depend anymore on `neon-animation`.
+   * `paper-dialog` doesn't depend anymore on `neon-animation`.
    * This method was previously inherited from `Polymer.NeonAnimatableBehavior`,
    * now is a no-op.
    */
   cancelAnimation(): void;
 
   /**
-   * `iron-dropdown` doesn't depend anymore on `neon-animation`.
+   * `paper-dialog` doesn't depend anymore on `neon-animation`.
    * This method was previously inherited from `Polymer.NeonAnimatableBehavior`,
    * now is a no-op.
    */
   playAnimation(type?: string, cookie?: object): void;
 
   /**
-   * `iron-dropdown` doesn't depend anymore on `neon-animation`.
+   * `paper-dialog` doesn't depend anymore on `neon-animation`.
    * This method was previously inherited from `Polymer.NeonAnimatableBehavior`,
    * now is a no-op.
    */
