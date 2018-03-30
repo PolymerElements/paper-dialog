@@ -204,6 +204,32 @@ element.
     },
 
     /**
+      * `iron-dropdown` doesn't depend anymore on `neon-animation`.
+      * This method was previously inherited from `Polymer.NeonAnimatableBehavior`,
+      * now is a no-op.
+      * @deprecated
+      */
+    cancelAnimation: function() {},
+
+    /**
+      * `iron-dropdown` doesn't depend anymore on `neon-animation`.
+      * This method was previously inherited from `Polymer.NeonAnimatableBehavior`,
+      * now is a no-op.
+      * @param {string=} type
+      * @param {!Object=} cookie
+      * @deprecated
+      */
+    playAnimation: function(type, cookie) {},
+
+    /**
+      * `iron-dropdown` doesn't depend anymore on `neon-animation`.
+      * This method was previously inherited from `Polymer.NeonAnimatableBehavior`,
+      * now is a no-op.
+      * @deprecated
+      */
+    getAnimationConfig: function(type) { return []; },
+
+    /**
      * @private
      */
     _renderOpened: function() {
