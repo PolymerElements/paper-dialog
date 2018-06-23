@@ -18,9 +18,9 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, minimum-scale=1.0, initial-scale=1, user-scalable=yes">
 
-  <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
-  <script src="../../web-component-tester/browser.js"></script>
-  <link rel="import" href="../paper-dialog.html">
+  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="../../../wct-browser-legacy/browser.js"></script>
+  <script type="module" src="../paper-dialog.js"></script>
 </head>
 
 <body>
@@ -53,40 +53,42 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
     </template>
   </test-fixture>
 
-  <script>
-    suite('modal', function() {
-      test(
-          'backdrop element remains opened when closing top modal, closes when all modals are closed',
-          function(done) {
-            var modals = fixture('opened-modals');
-            modals[1].addEventListener('iron-overlay-opened', function() {
-              assert.isTrue(modals[1].backdropElement.opened, 'backdrop is open');
-              modals[1].close();
-            });
-            modals[1].addEventListener('iron-overlay-closed', function() {
-              assert.isTrue(
-                  modals[1].backdropElement.opened, 'backdrop is still open');
-              modals[0].close();
-            });
-            modals[0].addEventListener('iron-overlay-closed', function() {
-              assert.isFalse(
-                  modals[0].backdropElement.opened, 'backdrop is closed');
-              done();
-            });
-          });
-    });
-
-    suite('a11y', function() {
-      a11ySuite('basic', []);
-
-      a11ySuite('modal', []);
-
-      test('dialog has role="dialog"', function() {
-        var dialog = fixture('basic');
-        assert.equal(dialog.getAttribute('role'), 'dialog', 'has role="dialog"');
+  <script type="module">
+import '../paper-dialog.js';
+import { a11ySuite } from 'wct-browser-legacy/a11ySuite.js';
+suite('modal', function() {
+  test(
+      'backdrop element remains opened when closing top modal, closes when all modals are closed',
+      function(done) {
+        var modals = fixture('opened-modals');
+        modals[1].addEventListener('iron-overlay-opened', function() {
+          assert.isTrue(modals[1].backdropElement.opened, 'backdrop is open');
+          modals[1].close();
+        });
+        modals[1].addEventListener('iron-overlay-closed', function() {
+          assert.isTrue(
+              modals[1].backdropElement.opened, 'backdrop is still open');
+          modals[0].close();
+        });
+        modals[0].addEventListener('iron-overlay-closed', function() {
+          assert.isFalse(
+              modals[0].backdropElement.opened, 'backdrop is closed');
+          done();
+        });
       });
-    });
-  </script>
+});
+
+suite('a11y', function() {
+  a11ySuite('basic', []);
+
+  a11ySuite('modal', []);
+
+  test('dialog has role="dialog"', function() {
+    var dialog = fixture('basic');
+    assert.equal(dialog.getAttribute('role'), 'dialog', 'has role="dialog"');
+  });
+});
+</script>
 
 </body>
 

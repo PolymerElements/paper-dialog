@@ -1,19 +1,72 @@
 {
-  "name": "@polymer/paper-dialog",
-  "private": true,
   "description": "A Material Design dialog",
+  "keywords": [
+    "web-components",
+    "polymer",
+    "dialog",
+    "overlay"
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/PolymerElements/paper-dialog"
   },
+  "homepage": "https://github.com/PolymerElements/paper-dialog",
+  "name": "@polymer/paper-dialog",
   "license": "BSD-3-Clause",
   "devDependencies": {
     "@polymer/gen-typescript-declarations": "^1.2.2",
     "bower": "^1.8.0",
-    "webmat": "^0.2.0"
+    "webmat": "^0.2.0",
+    "@polymer/iron-component-page": "^3.0.0-pre.20",
+    "@polymer/iron-demo-helpers": "^3.0.0-pre.20",
+    "@polymer/iron-test-helpers": "^3.0.0-pre.20",
+    "@polymer/paper-button": "^3.0.0-pre.20",
+    "@polymer/paper-dialog-scrollable": "^3.0.0-pre.20",
+    "@polymer/paper-dropdown-menu": "^3.0.0-pre.20",
+    "@polymer/paper-item": "^3.0.0-pre.20",
+    "@polymer/paper-listbox": "^3.0.0-pre.20",
+    "web-animations-js": "^2.3.1",
+    "wct-browser-legacy": "^1.0.1",
+    "@webcomponents/webcomponentsjs": "^2.0.0"
   },
   "scripts": {
     "update-types": "bower install && gen-typescript-declarations --deleteExisting --outDir .",
     "format": "webmat && npm run update-types"
+  },
+  "version": "3.0.0-pre.20",
+  "resolutions": {
+    "inherits": "2.0.3",
+    "samsam": "1.1.3",
+    "supports-color": "3.1.2",
+    "type-detect": "1.0.0",
+    "@webcomponents/webcomponentsjs": "2.0.0-beta.2"
+  },
+  "main": "paper-dialog.js",
+  "contributors": [
+    "T",
+    "h",
+    "e",
+    " ",
+    "P",
+    "o",
+    "l",
+    "y",
+    "m",
+    "e",
+    "r",
+    " ",
+    "A",
+    "u",
+    "t",
+    "h",
+    "o",
+    "r",
+    "s"
+  ],
+  "dependencies": {
+    "@polymer/neon-animation": "^3.0.0-pre.20",
+    "@polymer/paper-dialog-behavior": "^3.0.0-pre.20",
+    "@polymer/iron-overlay-behavior": "^3.0.0-pre.20",
+    "@polymer/polymer": "^3.0.0"
   }
 }
