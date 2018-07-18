@@ -1,15 +1,13 @@
+[![Published on NPM](https://img.shields.io/npm/v/@polymer/paper-dialog.svg)](https://www.npmjs.com/package/@polymer/paper-dialog)
 [![Build status](https://travis-ci.org/PolymerElements/paper-dialog.svg?branch=master)](https://travis-ci.org/PolymerElements/paper-dialog)
-[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://www.webcomponents.org/element/PolymerElements/paper-dialog)
+[![Published on webcomponents.org](https://img.shields.io/badge/webcomponents.org-published-blue.svg)](https://webcomponents.org/element/@polymer/paper-dialog)
 
 ## &lt;paper-dialog&gt;
-
-Material design: [Dialogs](https://www.google.com/design/spec/components/dialogs.html)
-
 `<paper-dialog>` is a dialog with Material Design styling and optional animations when it is
 opened or closed. It provides styles for a header, content area, and an action area for buttons.
 You can use the `<paper-dialog-scrollable>` element (in its own repository) if you need a scrolling
 content area. To autofocus a specific child element after opening the dialog, give it the `autofocus`
-attribute. See `Polymer.PaperDialogBehavior` and `Polymer.IronOverlayBehavior` for specifics.
+attribute. See `PaperDialogBehavior` and `IronOverlayBehavior` for specifics.
 
 For example, the following code implements a dialog with a header, scrolling content area and
 buttons. Focus will be given to the `dialog-confirm` button when the dialog is opened.
@@ -27,14 +25,9 @@ buttons. Focus will be given to the `dialog-confirm` button when the dialog is o
 </paper-dialog>
 ```
 
-### Changes in 2.0
-- `paper-dialog-behavior 2.0` styles only direct `h2` and `.buttons` children of the dialog because of how [`::slotted` works](https://developers.google.com/web/fundamentals/primers/shadowdom/?hl=en#stylinglightdom) 
-(compound selector will select only top level nodes)
-- `neon-animation 2.0` doesn't import the Web Animations polyfill, so you'll have to import it ([see Animations section](#Animations))
-
 ### Styling
 
-See the docs for `Polymer.PaperDialogBehavior` for the custom properties available for styling
+See the docs for `PaperDialogBehavior` for the custom properties available for styling
 this element.
 
 ### Animations
@@ -46,9 +39,10 @@ is opened or closed. See the documentation in
 For example:
 
 ```html
-<link rel="import" href="../neon-animation/web-animations.html">
-<link rel="import" href="../neon-animation/animations/scale-up-animation.html">
-<link rel="import" href="../neon-animation/animations/fade-out-animation.html">
+<script type="module">
+  import '@polymer/neon-animation/animations/scale-up-animation.js';
+  import '@polymer/neon-animation/animations/fade-out-animation.js';
+</script>
 
 <paper-dialog entry-animation="scale-up-animation"
               exit-animation="fade-out-animation">
@@ -59,7 +53,70 @@ For example:
 
 ### Accessibility
 
-See the docs for `Polymer.PaperDialogBehavior` for accessibility features implemented by this
+See the docs for `PaperDialogBehavior` for accessibility features implemented by this
 element.
 
+See: [Documentation](https://www.webcomponents.org/element/@polymer/paper-dialog),
+  [Demo](https://www.webcomponents.org/element/@polymer/paper-dialog/demo/demo/index.html).
 
+## Usage
+
+### Installation
+```
+npm install --save @polymer/paper-dialog
+```
+
+### In an html file
+```html
+<html>
+  <head>
+    <script type="module">
+      import '@polymer/paper-dialog/paper-dialog.js';
+    </script>
+  </head>
+  <body>
+    <paper-dialog>
+      <h2>Content</h2>
+    </paper-dialog>
+  </body>
+</html>
+```
+### In a Polymer 3 element
+```js
+import {PolymerElement, html} from '@polymer/polymer';
+import '@polymer/paper-dialog/paper-dialog.js';
+
+class SampleElement extends PolymerElement {
+  static get template() {
+    return html`
+      <paper-dialog>
+        <h2>Content</h2>
+      </paper-dialog>
+    `;
+  }
+}
+customElements.define('sample-element', SampleElement);
+```
+
+## Contributing
+If you want to send a PR to this element, here are
+the instructions for running the tests and demo locally:
+
+### Installation
+```sh
+git clone https://github.com/PolymerElements/paper-dialog
+cd paper-dialog
+npm install
+npm install -g polymer-cli
+```
+
+### Running the demo locally
+```sh
+polymer serve --npm
+open http://127.0.0.1:<port>/demo/
+```
+
+### Running the tests
+```sh
+polymer test --npm
+```
