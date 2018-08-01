@@ -18,33 +18,28 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
   <title>paper-dialog demo</title>
 
-  <script src="../../../@webcomponents/webcomponentsjs/webcomponents-bundle.js"></script>
+  <script src="https://unpkg.com/@webcomponents/webcomponentsjs@^2.0.0/webcomponents-loader.js"></script>
+  <!-- Import Web Animations polyfill -->
+  <script src="https://unpkg.com/web-animations-js@^2.0.0/web-animations-next-lite.min.js"></script>
 
-  <script type="module" src="../paper-dialog.js"></script>
-  <script type="module" src="../../paper-button/paper-button.js"></script>
-  <script type="module" src="../../paper-dialog-scrollable/paper-dialog-scrollable.js"></script>
-  <link rel="import" href="../../neon-animation/web-animations.html">
-  <script type="module" src="../../neon-animation/neon-animations.js"></script>
-  <script type="module" src="../../paper-dropdown-menu/paper-dropdown-menu-light.js"></script>
-  <script type="module" src="../../paper-listbox/paper-listbox.js"></script>
-  <script type="module" src="../../paper-item/paper-item.js"></script>
+  <script type="module">
+    import '../paper-dialog.js';
+    import '@polymer/paper-button/paper-button.js';
+    import '@polymer/paper-dialog-scrollable/paper-dialog-scrollable.js';
+    import '@polymer/neon-animation/neon-animations.js';
+    import '@polymer/paper-dropdown-menu/paper-dropdown-menu-light.js';
+    import '@polymer/paper-listbox/paper-listbox.js';
+    import '@polymer/paper-item/paper-item.js';
+    import '@polymer/iron-demo-helpers/demo-snippet.js';
+    import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
 
+    import {html} from '@polymer/polymer/lib/utils/html-tag.js';
+    const template = html
+    `<custom-style><style is="custom-style" include="demo-pages-shared-styles"></style></custom-style>`;
+    document.body.appendChild(template.content);
+  </script>
 
-  <script type="module" src="../../iron-demo-helpers/demo-snippet.js"></script>
-  <script type="module" src="../../iron-demo-helpers/demo-pages-shared-styles.js"></script>
-
-  <!-- FIXME(polymer-modulizer):
-        These imperative modules that innerHTML your HTML are
-        a hacky way to be sure that any mixins in included style
-        modules are ready before any elements that reference them are
-        instantiated, otherwise the CSS @apply mixin polyfill won't be
-        able to expand the underlying CSS custom properties.
-        See: https://github.com/Polymer/polymer-modulizer/issues/154
-        -->
-    <script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<custom-style><style is="custom-style" include="demo-pages-shared-styles">
+  <custom-style><style is="custom-style">
     .centered {
       min-width: 500px;
     }
@@ -54,30 +49,20 @@ $_documentContainer.innerHTML = `<custom-style><style is="custom-style" include=
         max-height: 250px;
       }
     }
-  </style></custom-style>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
+  </style></custom-style>
 
 </head>
 
 <body unresolved class="centered">
-  <script type="module">
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<h3>Dialog layouts</h3>`;
-document.body.appendChild($_documentContainer.content);
-</script>
-  <script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<demo-snippet>
+  <h3>Dialog layouts</h3>
+  <demo-snippet>
     <template>
-      <paper-button raised="" onclick="dialog.open()">plain dialog</paper-button>
-      <paper-button raised="" onclick="modal.open()">modal dialog</paper-button>
-      <paper-button raised="" onclick="scrolling.open()">scrolling dialog</paper-button>
-      <paper-button raised="" onclick="actions.open()">dialog with actions</paper-button>
-      <paper-button raised="" onclick="dropdownDialog.open()">dialog with dropdown</paper-button>
-      <paper-button raised="" onclick="nested.open()">dialog with nested dialog</paper-button>
+      <paper-button raised onclick="dialog.open()">plain dialog</paper-button>
+      <paper-button raised onclick="modal.open()">modal dialog</paper-button>
+      <paper-button raised onclick="scrolling.open()">scrolling dialog</paper-button>
+      <paper-button raised onclick="actions.open()">dialog with actions</paper-button>
+      <paper-button raised onclick="dropdownDialog.open()">dialog with dropdown</paper-button>
+      <paper-button raised onclick="nested.open()">dialog with nested dialog</paper-button>
 
       <paper-dialog id="dialog">
         <h2>Dialog Title</h2>
@@ -106,8 +91,8 @@ $_documentContainer.innerHTML = `<demo-snippet>
             irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         </paper-dialog-scrollable>
         <div class="buttons">
-          <paper-button dialog-dismiss="">Cancel</paper-button>
-          <paper-button dialog-confirm="" autofocus="">OK</paper-button>
+          <paper-button dialog-dismiss>Cancel</paper-button>
+          <paper-button dialog-confirm autofocus>OK</paper-button>
         </div>
       </paper-dialog>
 
@@ -117,15 +102,15 @@ $_documentContainer.innerHTML = `<demo-snippet>
           irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
         <div class="buttons">
           <paper-button>More Info...</paper-button>
-          <paper-button dialog-dismiss="">Decline</paper-button>
-          <paper-button dialog-confirm="" autofocus="">Accept</paper-button>
+          <paper-button dialog-dismiss>Decline</paper-button>
+          <paper-button dialog-confirm autofocus>Accept</paper-button>
         </div>
       </paper-dialog>
 
-      <paper-dialog id="modal" modal="">
+      <paper-dialog id="modal" modal>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
         <div class="buttons">
-          <paper-button dialog-confirm="" autofocus="">Tap me to close</paper-button>
+          <paper-button dialog-confirm autofocus>Tap me to close</paper-button>
         </div>
       </paper-dialog>
 
@@ -166,20 +151,10 @@ $_documentContainer.innerHTML = `<demo-snippet>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
       </paper-dialog>
     </template>
-  </demo-snippet>`;
+  </demo-snippet>
 
-document.body.appendChild($_documentContainer.content);
-</script>
-
-  <script type="module">
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<h3>Styling and positioning</h3>`;
-document.body.appendChild($_documentContainer.content);
-</script>
-  <script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<demo-snippet>
+  <h3>Styling and positioning</h3>
+  <demo-snippet>
     <template>
       <style>
         paper-dialog.colored {
@@ -198,8 +173,8 @@ $_documentContainer.innerHTML = `<demo-snippet>
           overflow: auto;
         }
       </style>
-      <paper-button raised="" onclick="colors.open()">colors</paper-button>
-      <paper-button raised="" onclick="position.open()">size &amp; position</paper-button>
+      <paper-button raised onclick="colors.open()">colors</paper-button>
+      <paper-button raised onclick="position.open()">size &amp; position</paper-button>
 
       <paper-dialog id="colors" class="colored">
         <h2>Custom Colors</h2>
@@ -213,31 +188,21 @@ $_documentContainer.innerHTML = `<demo-snippet>
           dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </paper-dialog>
     </template>
-  </demo-snippet>`;
+  </demo-snippet>
 
-document.body.appendChild($_documentContainer.content);
-</script>
-
-  <script type="module">
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<h3>Position with <code>positionTarget</code></h3>`;
-document.body.appendChild($_documentContainer.content);
-</script>
-  <script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<demo-snippet>
+  <h3>Position with <code>positionTarget</code></h3>
+  <demo-snippet>
     <template>
       <style is="custom-style">
         #alignedDialog {
           margin: 0;
         }
       </style>
-      <paper-button raised="" onclick="openBy(this)">Open</paper-button>
-      <paper-button raised="" onclick="openBy(this)">Open</paper-button>
-      <paper-button raised="" onclick="openBy(this)">Open</paper-button>
+      <paper-button raised onclick="openBy(this)">Open</paper-button>
+      <paper-button raised onclick="openBy(this)">Open</paper-button>
+      <paper-button raised onclick="openBy(this)">Open</paper-button>
 
-      <paper-dialog id="alignedDialog" no-overlap="" horizontal-align="left" vertical-align="top">
+      <paper-dialog id="alignedDialog" no-overlap horizontal-align="left" vertical-align="top">
         <h2>Aligned dialog</h2>
         <paper-dialog-scrollable>
           Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure
@@ -250,46 +215,21 @@ $_documentContainer.innerHTML = `<demo-snippet>
           alignedDialog.positionTarget = element;
           alignedDialog.open();
         }
-      &lt;/script>
-    </template>
-  </demo-snippet>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>r/neon-animation/neon-animations.js';
-import '@polymer/paper-dropdown-menu/paper-dropdown-menu-light.js';
-import '@polymer/paper-listbox/paper-listbox.js';
-import '@polymer/paper-item/paper-item.js';
-import '@polymer/iron-demo-helpers/demo-snippet.js';
-import '@polymer/iron-demo-helpers/demo-pages-shared-styles.js';
-function openBy(element) {
-  alignedDialog.positionTarget = element;
-  alignedDialog.open();
-}
-</script>
+      </script>
     </template>
   </demo-snippet>
 
-  <script type="module">
-const $_documentContainer = document.createElement('template');
-$_documentContainer.innerHTML = `<h3>Transitions with neon-animation</h3>`;
-document.body.appendChild($_documentContainer.content);
-</script>
-  <script type="module">
-const $_documentContainer = document.createElement('template');
-
-$_documentContainer.innerHTML = `<demo-snippet>
+  <h3>Transitions with neon-animation</h3>
+  <demo-snippet>
     <template>
-      <paper-button raised="" onclick="animated.open()">open</paper-button>
-      <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop="">
+      <paper-button raised onclick="animated.open()">open</paper-button>
+      <paper-dialog id="animated" entry-animation="scale-up-animation" exit-animation="fade-out-animation" with-backdrop>
         <h2>Dialog Title</h2>
         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
           irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
       </paper-dialog>
     </template>
-  </demo-snippet>`;
-
-document.body.appendChild($_documentContainer.content);
-</script>
+  </demo-snippet>
 
 </body>
 
