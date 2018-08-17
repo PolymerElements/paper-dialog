@@ -57,10 +57,10 @@ for more info.
 
 For example:
 
-    <link rel="import"
-href="components/neon-animation/animations/scale-up-animation.html"> <link
-rel="import"
-href="components/neon-animation/animations/fade-out-animation.html">
+    <script type="module">
+      import '@polymer/neon-animation/animations/fade-out-animation.js';
+      import '@polymer/neon-animation/animations/scale-up-animation.js';
+    </script>
 
     <paper-dialog entry-animation="scale-up-animation"
                   exit-animation="fade-out-animation">
