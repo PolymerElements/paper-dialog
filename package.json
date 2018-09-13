@@ -16,12 +16,12 @@
   "devDependencies": {
     "webmat": "^0.2.0",
     "@polymer/iron-demo-helpers": "^3.0.1",
-    "@polymer/iron-test-helpers": "^3.0.0-pre.25",
-    "@polymer/paper-button": "^3.0.0-pre.25",
-    "@polymer/paper-dialog-scrollable": "^3.0.0-pre.25",
-    "@polymer/paper-dropdown-menu": "^3.0.0-pre.25",
-    "@polymer/paper-item": "^3.0.0-pre.25",
-    "@polymer/paper-listbox": "^3.0.0-pre.25",
+    "@polymer/iron-test-helpers": "^3.0.0-pre.26",
+    "@polymer/paper-button": "^3.0.0-pre.26",
+    "@polymer/paper-dialog-scrollable": "^3.0.0-pre.26",
+    "@polymer/paper-dropdown-menu": "^3.0.0-pre.26",
+    "@polymer/paper-item": "^3.0.0-pre.26",
+    "@polymer/paper-listbox": "^3.0.0-pre.26",
     "web-animations-js": "^2.3.1",
     "wct-browser-legacy": "^1.0.1",
     "@webcomponents/webcomponentsjs": "^2.0.0",
@@ -36,9 +36,9 @@
   "main": "paper-dialog.js",
   "author": "The Polymer Authors",
   "dependencies": {
-    "@polymer/neon-animation": "^3.0.0-pre.25",
-    "@polymer/paper-dialog-behavior": "^3.0.0-pre.25",
-    "@polymer/iron-overlay-behavior": "^3.0.0-pre.26",
+    "@polymer/neon-animation": "^3.0.0-pre.26",
+    "@polymer/paper-dialog-behavior": "^3.0.0-pre.26",
+    "@polymer/iron-overlay-behavior": "^3.0.0-pre.27",
     "@polymer/polymer": "^3.0.0"
   }
 }
