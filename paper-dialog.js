@@ -73,12 +73,11 @@ For example:
 See the docs for `Polymer.PaperDialogBehavior` for accessibility features
 implemented by this element.
 
-@group Paper Elements
 @element paper-dialog
-@hero hero.svg
 @demo demo/index.html
 */
 Polymer({
+  /** @override */
   _template: html`
     <style include="paper-dialog-shared-styles"></style>
     <slot></slot>
